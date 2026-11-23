@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE STORE</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <div id="loader"><div class="spinner"></div><p class="logo">LUXE STORE</p></div>
+
+  <div class="promo">
+    <span id="promoMsg" class="promo-msg">BIG SALE — 50% GACHA CHEGIRMA!</span>
+    <span class="cd">Tugashiga: <b id="cd">--:--:--</b></span>
+  </div>
+
+  <header class="header">
+    <div class="logo">LUXE STORE</div>
+    <nav class="nav">
+      <a href="#home">Bosh sahifa</a>
+      <a href="#products">Mahsulotlar</a>
+      <a href="#categories">Kategoriyalar</a>
+      <a href="#reviews">Fikrlar</a>
+      <a href="#footer">Aloqa</a>
+    </nav>
+    <div class="icons">
+      <button class="icon-btn" data-action="search" title="Qidiruv">🔍</button>
+      <button class="icon-btn" data-action="openWish" title="Sevimlilar">♥<span class="count" id="wishCount"></span></button>
+      <button class="icon-btn" data-action="openCart" title="Savat">🛒<span class="count" id="cartCount"></span></button>
+      <button class="icon-btn" id="profileBtn" data-action="openProfile" title="Profil">👤</button>
+      <button class="icon-btn" data-action="toggleTheme" title="Mavzu">🌓</button>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <span class="shape s1"></span><span class="shape s2"></span><span class="shape s3"></span>
+    <div class="hero-inner">
+      <span class="tag">Yangi kolleksiya 2026</span>
+      <h1>Kelajak xaridlari — <span class="gold-text">LUXE STORE</span> bilan!</h1>
+      <p>Eng zamonaviy mahsulotlar, ajoyib narxlar va unutilmas xarid tajribasi.</p>
+      <div class="hero-btns">
+        <a class="btn gold" href="#products">Xarid qilish</a>
+        <a class="btn ghost" href="#categories">Katalogni ko'rish</a>
+      </div>
+      <div class="stats">
+        <div><b>16+</b><span>Mahsulot</span></div>
+        <div><b>24/7</b><span>Qo'llab-quvvatlash</span></div>
+        <div><b>4.8★</b><span>O'rtacha reyting</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories" class="reveal">
+    <h2>Kategoriyalar</h2>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <section id="products" class="reveal">
+    <h2>Mahsulotlar</h2>
+    <div class="toolbar">
+      <input id="searchInput" placeholder="Mahsulot nomi bo'yicha qidirish..." />
+      <select id="catSelect"></select>
+      <select id="sortSelect">
+        <option value="new">Eng yangilar</option>
+        <option value="bestseller">Eng ko'p sotilgan</option>
+        <option value="rating">Reyting bo'yicha</option>
+        <option value="cheap">Arzonroq</option>
+        <option value="expensive">Qimmatroq</option>
+        <option value="discount">Chegirma bo'yicha</option>
+      </select>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p id="empty" class="empty" hidden>Mahsulot topilmadi</p>
+  </section>
+
+  <section id="reviews" class="reveal">
+    <h2>Mijozlar fikri</h2>
+    <div class="testi" id="testi"></div>
+  </section>
+
+  <footer id="footer" class="footer">
+    <div class="logo">LUXE STORE</div>
+    <div class="foot-links">
+      <a href="#home">Biz haqimizda</a><a href="#footer">Aloqa</a><a href="#footer">Yetkazib berish</a><a href="#footer">To'lov usullari</a>
+    </div>
+    <div class="socials"><a href="#" title="Telegram">✈️ Telegram</a><a href="#" title="Instagram">📷 Instagram</a><a href="#" title="YouTube">▶️ YouTube</a></div>
+    <p class="copy">© 2026 LUXE STORE. Barcha huquqlar himoyalangan.</p>
+  </footer>
+
+  <!-- Savat -->
+  <div class="overlay" id="m-cart" hidden>
+    <aside class="drawer">
+      <div class="drawer-head"><h2 id="cartTitle">Savat</h2><button class="icon-btn" data-action="close" data-id="m-cart">✕</button></div>
+      <div id="cartItems"></div>
+      <div id="cartFooter" hidden>
+        <div class="total"><span>Jami</span><span id="cartTotal"></span></div>
+        <button class="btn gold full" data-action="openCheckout">Buyurtma berish</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Mahsulot tafsilotlari -->
+  <div class="overlay center" id="m-product" hidden>
+    <div class="modal wide">
+      <button class="icon-btn close-x" data-action="close" data-id="m-product">✕</button>
+      <div id="pmBody"></div>
+    </div>
+  </div>
+
+  <!-- Buyurtma berish -->
+  <div class="overlay center" id="m-checkout" hidden>
+    <div class="modal wide">
+      <button class="icon-btn close-x" data-action="close" data-id="m-checkout">✕</button>
+      <h2>Buyurtma berish</h2>
+      <form id="checkoutForm" class="checkout">
+        <div class="grid2">
+          <label>Ism<input name="first" required /></label>
+          <label>Familiya<input name="last" required /></label>
+          <label>Telefon<input name="phone" placeholder="+998 90 123 45 67" required /></label>
+          <label>Viloyat
+            <select name="region" required>
+              <option value="">Tanlang</option>
+              <option>Toshkent shahri</option><option>Toshkent viloyati</option><option>Samarqand</option>
+              <option>Buxoro</option><option>Farg'ona</option><option>Andijon</option><option>Namangan</option>
+              <option>Qashqadaryo</option><option>Surxondaryo</option><option>Xorazm</option>
+              <option>Navoiy</option><option>Jizzax</option><option>Sirdaryo</option><option>Qoraqalpog'iston</option>
+            </select>
+          </label>
+          <label>Shahar yoki tuman<input name="city" required /></label>
+          <label>Yetkazib berish
+            <select name="delivery" id="deliverySel">
+              <option value="25000">Kuryer — 25 000 so'm</option>
+              <option value="50000">Express (2 soat) — 50 000 so'm</option>
+              <option value="0">Olib ketish — bepul</option>
+            </select>
+          </label>
+        </div>
+        <label>To'liq manzil<textarea name="address" rows="2" required></textarea></label>
+        <fieldset class="pay">
+          <legend>To'lov usuli</legend>
+          <label><input type="radio" name="payment" value="Naqd pul" checked /> 💵 Naqd pul</label>
+          <label><input type="radio" name="payment" value="Click" /> 🟦 Click</label>
+          <label><input type="radio" name="payment" value="Payme" /> 🟩 Payme</label>
+          <label><input type="radio" name="payment" value="Uzcard" /> 💳 Uzcard</label>
+          <label><input type="radio" name="payment" value="Humo" /> 💳 Humo</label>
+        </fieldset>
+        <div class="summary">
+          <div><span>Mahsulotlar</span><span id="sumSub"></span></div>
+          <div><span>Yetkazib berish</span><span id="sumDel"></span></div>
+          <div class="total"><span>Jami</span><span id="sumTotal"></span></div>
+        </div>
+        <p class="muted">Demo rejim: real to'lov amalga oshirilmaydi.</p>
+        <button class="btn gold full" type="submit">Buyurtmani tasdiqlash</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buyurtma muvaffaqiyati -->
+  <div class="overlay center" id="m-success" hidden>
+    <div class="modal">
+      <div class="big">🎉</div>
+      <h2>Buyurtma qabul qilindi!</h2>
+      <p>Buyurtma raqami: <strong id="orderNum"></strong></p>
+      <p id="orderInfo"></p>
+      <p class="muted">Holatini profilingizdagi "Buyurtmalarim" bo'limida kuzatishingiz mumkin.</p>
+      <button class="btn gold full" data-action="close" data-id="m-success">Yopish</button>
+    </div>
+  </div>
+
+  <!-- Sevimlilar -->
+  <div class="overlay" id="m-wish" hidden>
+    <aside class="drawer">
+      <div class="drawer-head"><h2>Sevimlilar</h2><button class="icon-btn" data-action="close" data-id="m-wish">✕</button></div>
+      <div id="wishItems"></div>
+    </aside>
+  </div>
+
+  <!-- Kirish / ro'yxatdan o'tish -->
+  <div class="overlay center" id="m-auth" hidden>
+    <div class="modal">
+      <button class="icon-btn close-x" data-action="close" data-id="m-auth">✕</button>
+      <div class="tabs">
+        <button class="tab active" data-action="authTab" data-mode="login">Kirish</button>
+        <button class="tab" data-action="authTab" data-mode="register">Ro'yxatdan o'tish</button>
+      </div>
+      <form id="loginForm" class="stack">
+        <input name="login" placeholder="Login" required />
+        <input name="password" type="password" placeholder="Parol" required />
+        <button class="btn gold full" type="submit">Kirish</button>
+        <p class="muted">Demo admin: login <b>admin</b>, parol <b>admin</b></p>
+      </form>
+      <form id="registerForm" class="stack" hidden>
+        <input name="name" placeholder="Ism" required />
+        <input name="phone" placeholder="Telefon" required />
+        <input name="login" placeholder="Login" required />
+        <input name="password" type="password" placeholder="Parol (kamida 4 belgi)" minlength="4" required />
+        <button class="btn gold full" type="submit">Ro'yxatdan o'tish</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Profil -->
+  <div class="overlay" id="m-profile" hidden>
+    <aside class="drawer">
+      <div class="drawer-head"><h2>Profil</h2><button class="icon-btn" data-action="close" data-id="m-profile">✕</button></div>
+      <div class="avatar" id="pAvatar">👤</div>
+      <p class="center-text"><strong id="pName"></strong><br><span class="muted" id="pPhone"></span></p>
+      <form id="profileForm" class="stack">
+        <input name="name" placeholder="Ism" required />
+        <input name="phone" placeholder="Telefon" required />
+        <button class="btn ghost full" type="submit">Ma'lumotni saqlash</button>
+      </form>
+      <h3>Buyurtmalarim</h3>
+      <div id="pOrders"></div>
+      <button class="btn gold full" id="adminBtn" data-action="openAdmin" hidden>Admin panel</button>
+      <button class="btn ghost full" data-action="logout">Chiqish</button>
+    </aside>
+  </div>
+
+  <!-- Admin panel -->
+  <div class="overlay" id="m-admin" hidden>
+    <aside class="drawer admin">
+      <div class="drawer-head"><h2>Admin panel</h2><button class="icon-btn" data-action="close" data-id="m-admin">✕</button></div>
+      <div class="kpis">
+        <div class="kpi"><b id="kRev"></b><span>Umumiy sotuv</span></div>
+        <div class="kpi"><b id="kOrd"></b><span>Buyurtmalar</span></div>
+        <div class="kpi"><b id="kProd"></b><span>Mahsulotlar</span></div>
+        <div class="kpi"><b id="kUsers"></b><span>Foydalanuvchilar</span></div>
+      </div>
+      <h3>Kategoriya bo'yicha daromad</h3>
+      <div id="chart" class="chart"></div>
+      <h3>Buyurtmalar</h3>
+      <div id="adminOrders"></div>
+      <h3>Mahsulotlar</h3>
+      <form id="addProdForm" class="stack">
+        <input name="name" placeholder="Nomi" required />
+        <div class="grid2">
+          <input name="price" type="number" min="1" placeholder="Narxi (so'm)" required />
+          <select name="cat" id="addCat"></select>
+        </div>
+        <input name="emoji" placeholder="Emoji (masalan 📱)" value="🛍️" />
+        <button class="btn gold full" type="submit">Mahsulot qo'shish</button>
+      </form>
+      <div id="adminProducts"></div>
+    </aside>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
